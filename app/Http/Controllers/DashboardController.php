@@ -11,13 +11,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
-        $approvedCompanies = Company::where('approved', 1)->get();
-        $unApprovedCompanies = Company::where('approved', 0)->get();
-        return Inertia::render('Dashboard', [
-            'unApprovedCompanies' => $unApprovedCompanies,
-            'approvedCompanies' => $approvedCompanies,
-            'user' => $user
-        ]);
+        return Inertia::render('Dashboard');
     }
 }

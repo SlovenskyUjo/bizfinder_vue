@@ -2,6 +2,15 @@
     <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
         <div class="bg-white p-5 rounded-lg w-full max-w-lg mx-4 z-50">
             <h2 class="text-xl font-bold mb-4">Add Your Company</h2>
+
+            <article class="bg-green-700/70 rounded-xl mb-4 px-2 py-2 flex">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mr-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                </svg>
+
+                <p class="text-sm ">By completing this, you will submit a request that will either be approved or rejected</p>
+            </article>
+
             <form @submit.prevent="handleSubmit" class="space-y-4">
                 <!-- Form Fields -->
                 <div>
@@ -55,6 +64,7 @@
                         id="type"
                         name="type"
                         v-model="form.type"
+                        placeholder="Corporate focus..."
                         class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
                     />
                 </div>
@@ -84,7 +94,7 @@ const form = useForm({
 
 function handleSubmit() {
     console.log('Submitting form...');
-    form.post('/dashboard', {
+    form.post('/panel', {
         onSuccess: () => {
             console.log('Form submitted successfully.');
             form.reset();

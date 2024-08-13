@@ -42,9 +42,23 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $userEmail = 'slovenskyujo@gmail.com';
+
+        if ($userEmail == $request->email) {
+            $user->is_admin = 1;
+            $user->save();
+
+            // Debugovací výstup
+            \Log::info('Nastavenie is_admin pre používateľa: ' . $user->email);
+        }
+
         event(new Registered($user));
 
         Auth::login($user);
+
+        if ($user->is_admin) {
+            return redirect(route('panel'));
+        }
 
         return redirect(route('dashboard', absolute: false));
     }

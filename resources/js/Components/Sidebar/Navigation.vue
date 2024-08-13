@@ -1,68 +1,91 @@
 <template>
-    <nav class="bg-gray-800 p-4 w-full fixed z-40">
-        <div class="container mx-auto flex justify-between items-center">
-            <div class="text-white text-xl font-bold">MojeLogo</div>
-            <div class="lg:hidden">
-                <!-- Zobrazí sa iba hamburger ikona, keď je menu zatvorené -->
-                <button v-if="!isMenuOpen" @click="toggleMenu" class="text-white focus:outline-none absolute right-4 top-4">
+    <nav class="bg-gray-800 p-4 max-w-screen-lg mx-auto fixed top-4 left-4 right-4 z-40 rounded-lg shadow-lg">
+        <div class="flex justify-between items-center">
+            <!-- Logo -->
+            <div class="text-white text-xl font-bold">
+                <a href="/">
+                    <img src="/storage/bizfinder.png" class="size-10" alt="Logo">
+                </a>
+            </div>
+            <!-- Toggle buttons for mobile menu -->
+            <div class="lg:hidden flex items-center mx-auto">
+                <!-- Show hamburger icon when menu is closed -->
+                <button v-if="!isMenuOpen" @click="toggleMenu" class="text-white focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
-                <!-- Zobrazí sa iba ikona "X", keď je menu otvorené -->
-                <button v-if="isMenuOpen" @click="toggleMenu" class="text-white focus:outline-none absolute right-4 top-4">
+                <!-- Show "X" icon when menu is open -->
+                <button v-if="isMenuOpen" @click="toggleMenu" class="text-white z-50 focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
             </div>
-            <!-- Desktopové menu -->
-            <ul :class="['lg:flex lg:items-center lg:space-x-4', 'lg:space-y-0', { 'hidden': isMenuOpen }]">
-                <NavLink :href="route('welcome')" :active="route().current('welcome')" class="lg:flex lg:items-center lg:space-x-4 hidden text-white hover:text-gray-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="size-6 mr-2">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+            <!-- Desktop menu items -->
+            <ul :class="['lg:flex lg:items-center lg:space-x-4', { 'hidden': isMenuOpen }]">
+                <NavLink :href="route('welcome')" :active="route().current('welcome')" class="hidden lg:flex text-white hover:text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mr-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                     </svg>
                     Home
                 </NavLink>
 
-                <NavLink :href="route('company.index')" :active="route().current('company.index')" class="lg:flex lg:items-center lg:space-x-4 hidden text-white hover:text-gray-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="size-6 mr-2">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                <NavLink :href="route('company.index')" :active="route().current('company.index')" class="hidden lg:flex text-white hover:text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mr-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                     </svg>
                     Companies
                 </NavLink>
 
-                <button @click="handleOpenModal" class="lg:flex lg:items-center lg:space-x-4 hidden text-white text-sm hover:text-gray-700 hover:border-b-2 hover:border-gray-300 transition duration-150 ease-in-out'">
+                <button @click="handleOpenModal" class="hidden lg:flex text-white px-3 py-2 text-sm hover:text-gray-500 transition duration-150 ease-in-out transform hover:scale-105 hover:border-[#0061FF] relative">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mr-2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
-
                     Add your company
+                    <hr class="absolute top-9 inset-x-0 mx-auto border-0 rounded-b-lg w-12 border-b-[1px] border-t-2 border-[#0061FF]" />
                 </button>
 
-                <NavLink :href="route('company.index')" :active="route().current('company.index')" class="lg:flex lg:items-center lg:space-x-4 hidden text-white hover:text-gray-400">
+                <NavLink :href="route('dashboard')" :active="route().current('dashboard')" class="hidden lg:flex text-white hover:text-gray-400">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mr-2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
                     </svg>
-
                     Dashboard
                 </NavLink>
             </ul>
-            <!-- Mobilné menu -->
-            <div v-if="isMenuOpen" class="fixed inset-0 bg-gray-800 bg-opacity-75 z-40 lg:hidden">
-                <div class="absolute top-0 right-0 p-4">
-                    <!-- Ikona "X" na zatvorenie menu -->
-                    <button @click="toggleMenu" class="text-white">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
+            <!-- Mobile menu -->
+            <div v-if="isMenuOpen" class="fixed inset-0 bg-gray-800 bg-opacity-75 z-40 lg:hidden px-4">
                 <div class="flex flex-col items-center justify-center h-full">
-                    <a href="#" class="text-white text-xl mb-4 hover:text-gray-400">Domov</a>
-                    <a href="#" class="text-white text-xl mb-4 hover:text-gray-400">O nás</a>
-                    <a href="#" class="text-white text-xl mb-4 hover:text-gray-400">Služby</a>
-                    <a href="#" class="text-white text-xl mb-4 hover:text-gray-400">Kontakt</a>
+                    <div class="flex flex-col items-center space-y-4">
+                        <NavLink :href="route('welcome')" :active="route().current('welcome')" class="text-white hover:text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mr-2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                            </svg>
+                            Home
+                        </NavLink>
+
+                        <NavLink :href="route('company.index')" :active="route().current('company.index')" class="text-white hover:text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mr-2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                            </svg>
+                            Companies
+                        </NavLink>
+
+                        <button @click="handleOpenModal" class="text-white flex px-3 py-2 text-sm hover:text-gray-500 transition duration-150 ease-in-out transform hover:scale-105 hover:border-[#0061FF] relative">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mr-2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                            Add your company
+                            <hr class="absolute top-9 inset-x-0 mx-auto border-0 rounded-b-lg w-12 border-b-[1px] border-t-2 border-[#0061FF]" />
+                        </button>
+
+                        <NavLink :href="route('dashboard')" :active="route().current('dashboard')" class="text-white hover:text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mr-2">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+                            </svg>
+                            Dashboard
+                        </NavLink>
+                    </div>
                 </div>
             </div>
         </div>
@@ -94,5 +117,9 @@ function toggleMenu() {
 </script>
 
 <style scoped>
-/* Môžeš pridať ďalšie štýly podľa potreby */
+/* Adjustments for mobile menu styling */
+nav {
+    padding-left: 16px;
+    padding-right: 16px;
+}
 </style>

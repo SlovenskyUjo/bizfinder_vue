@@ -8,12 +8,12 @@
 
         <!-- Filter Section -->
         <div class="mt-6 w-full max-w-4xl flex flex-wrap gap-4 justify-center">
-            <select v-model="selectedCity" class="border border-gray-300 rounded-md p-2 bg-white">
+            <select v-model="selectedCity" class="border border-gray-300 rounded-md p-2 pr-9 bg-white">
                 <option value="">All Cities</option>
                 <option v-for="city in uniqueCities" :key="city" :value="city">{{ city }}</option>
             </select>
 
-            <select v-model="selectedType" class="border border-gray-300 rounded-md p-2 bg-white">
+            <select v-model="selectedType" class="border border-gray-300 rounded-md p-2 pr-9 bg-white">
                 <option value="">All Types</option>
                 <option v-for="type in uniqueTypes" :key="type" :value="type">{{ type }}</option>
             </select>

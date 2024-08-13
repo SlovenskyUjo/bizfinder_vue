@@ -6,13 +6,13 @@
             @transitionend="handleTransitionEnd"
         >
             <h1
-                class="text-xl sm:text-2xl md:text-4xl font-extrabold text-gray-300 mb-4 transition-transform transition-opacity duration-600"
+                class="text-xl sm:text-2xl md:text-4xl font-extrabold text-gray-700 mb-4 transition-transform transition-opacity duration-600"
                 :class="{ 'opacity-0 -translate-y-5': !isVisible, 'opacity-100 translate-y-0': isVisible }"
             >
                 Nájdite podniky vo vašom okolí rýchlo a jednoducho
             </h1>
             <p
-                class="text-sm sm:text-base text-white md:text-lg mt-4 sm:mt-6 md:mt-8 leading-relaxed transition-transform transition-opacity duration-600"
+                class="text-sm sm:text-base text-gray-500 md:text-lg mt-4 sm:mt-6 md:mt-8 leading-relaxed transition-transform transition-opacity duration-600"
                 :class="{ 'opacity-0 translate-y-5': !isVisible, 'opacity-100 translate-y-0': isVisible }"
             >
                 Vitajte v našej aplikácii, ktorá vám pomôže nájsť najlepšie podniky vo
