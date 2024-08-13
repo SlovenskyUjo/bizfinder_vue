@@ -24,10 +24,10 @@ class CompanyController extends Controller
             'type' => 'required|min:1|max:244'
         ]);
 
-        $path = $request->file('image')->store('public');
+        $path = $request->file('image')->store('public/images');
         $fileName = basename($path);
 
-        $imageUrl = 'storage/' . $fileName;
+        $imageUrl = 'storage/images/' . $fileName;
 
         $company = Company::create([
             'name' => $request->name,

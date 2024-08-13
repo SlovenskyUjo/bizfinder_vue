@@ -19,8 +19,10 @@
             </select>
         </div>
 
+        <p v-if="companies.length == 0">No companies found!</p>
+
         <!-- Companies List -->
-        <div v-if="filteredCompanies.length > 0" class="mt-8 w-full max-w-4xl">
+        <div v-else v-if="filteredCompanies.length > 0" class="mt-8 w-full max-w-4xl">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 <div v-for="company in paginatedCompanies" :key="company.id" class="bg-white shadow-md rounded-lg overflow-hidden">
                     <img :src="company.image" alt="Company Logo" class="w-full h-32 object-cover">

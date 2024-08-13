@@ -1,122 +1,84 @@
 <template>
-    <div>
-        <div
-            :class="containerClass"
-            class="bg-neutral-900 flex flex-col z-10 gap-5 p-5 absolute top-0 left-0 h-full shadow shadow-neutral-700"
-        >
-            <!-- Header with arrow button at the top -->
-            <div class="flex flex-row w-full justify-between items-center">
-                <a href="/">
-                    <img
-                        src="/storage/bizfinder.png"
-                        alt="bizfinder-logo"
-                        class="h-10 w-10 rounded-full"
-                    />
-                </a>
-                <button
-                    class="p-1 rounded-full flex"
-                    @click="handleOpenClose"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1"
-                        stroke="currentColor"
-                        class="w-8 h-8 stroke-neutral-200"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                        />
+    <nav class="bg-gray-800 p-4 w-full fixed z-40">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-white text-xl font-bold">MojeLogo</div>
+            <div class="lg:hidden">
+                <!-- Zobrazí sa iba hamburger ikona, keď je menu zatvorené -->
+                <button v-if="!isMenuOpen" @click="toggleMenu" class="text-white focus:outline-none absolute right-4 top-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+                <!-- Zobrazí sa iba ikona "X", keď je menu otvorené -->
+                <button v-if="isMenuOpen" @click="toggleMenu" class="text-white focus:outline-none absolute right-4 top-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
             </div>
-
-            <!-- Centered navigation links -->
-            <div class="flex-grow flex flex-col justify-center gap-3">
-                <NavLink
-                    class="flex p-1 rounded cursor-pointer stroke-[0.75] hover:stroke-neutral-100 stroke-neutral-400 text-neutral-400 hover:text-neutral-100 place-items-center gap-3 hover:bg-neutral-700/30 transition-colors duration-100"
-                    :href="route('welcome')"
-                    :active="route().current('welcome')"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="stroke-inherit stroke-[0.75] min-w-8 w-8">
-                        <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
-                        <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
+            <!-- Desktopové menu -->
+            <ul :class="['lg:flex lg:items-center lg:space-x-4', 'lg:space-y-0', { 'hidden': isMenuOpen }]">
+                <NavLink :href="route('welcome')" :active="route().current('welcome')" class="lg:flex lg:items-center lg:space-x-4 hidden text-white hover:text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="size-6 mr-2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                     </svg>
-
-                    <p v-if="isOpen" class="text-inherit font-poppins overflow-clip whitespace-nowrap tracking-wide text-[15px]">
-                        Home
-                    </p>
+                    Home
                 </NavLink>
 
-                <NavLink
-                    class="flex p-1 rounded cursor-pointer stroke-[0.75] hover:stroke-neutral-100 stroke-neutral-400 text-neutral-400 hover:text-neutral-100 place-items-center gap-3 hover:bg-neutral-700/30 transition-colors duration-100"
-                    :href="route('company.index')"
-                    :active="route().current('company.index')"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="stroke-inherit stroke-[0.75] min-w-8 w-8">
-                        <path d="M16.5 6a3 3 0 0 0-3-3H6a3 3 0 0 0-3 3v7.5a3 3 0 0 0 3 3v-6A4.5 4.5 0 0 1 10.5 6h6Z" />
-                        <path d="M18 7.5a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3h-7.5a3 3 0 0 1-3-3v-7.5a3 3 0 0 1 3-3H18Z" />
+                <NavLink :href="route('company.index')" :active="route().current('company.index')" class="lg:flex lg:items-center lg:space-x-4 hidden text-white hover:text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="size-6 mr-2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                     </svg>
-
-
-                    <p v-if="isOpen" class="text-inherit font-poppins overflow-clip whitespace-nowrap tracking-wide text-[15px]">
-                        Companies
-                    </p>
+                    Companies
                 </NavLink>
 
-                <button
-                    @click="handleOpenModal"
-                    class="flex p-1 rounded cursor-pointer stroke-[0.75] hover:stroke-neutral-100 stroke-neutral-400 text-neutral-400 hover:text-neutral-100 place-items-center gap-3 hover:bg-neutral-700/30 transition-colors duration-100"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="stroke-inherit stroke-[0.75] min-w-8 w-8">
-                        <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />
+                <button @click="handleOpenModal" class="lg:flex lg:items-center lg:space-x-4 hidden text-white text-sm hover:text-gray-700 hover:border-b-2 hover:border-gray-300 transition duration-150 ease-in-out'">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mr-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
 
-                    <p v-if="isOpen" class="text-inherit font-poppins overflow-clip whitespace-nowrap tracking-wide text-[15px]">
-                        Add your company
-                    </p>
+                    Add your company
                 </button>
 
-                <NavLink
-                    class="flex p-1 rounded cursor-pointer stroke-[0.75] hover:stroke-neutral-100 stroke-neutral-400 text-neutral-400 hover:text-neutral-100 place-items-center gap-3 hover:bg-neutral-700/30 transition-colors duration-100"
-                    :href="route('dashboard')"
-                    :active="route().current('dashboard')"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="stroke-inherit stroke-[0.75] min-w-8 w-8">
-                        <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75ZM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 0 1-1.875-1.875V8.625ZM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 0 1 3 19.875v-6.75Z" />
+                <NavLink :href="route('company.index')" :active="route().current('company.index')" class="lg:flex lg:items-center lg:space-x-4 hidden text-white hover:text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mr-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
                     </svg>
 
-
-                    <p v-if="isOpen" class="text-inherit font-poppins overflow-clip whitespace-nowrap tracking-wide text-[15px]">
-                        Dashboard
-                    </p>
+                    Dashboard
                 </NavLink>
+            </ul>
+            <!-- Mobilné menu -->
+            <div v-if="isMenuOpen" class="fixed inset-0 bg-gray-800 bg-opacity-75 z-40 lg:hidden">
+                <div class="absolute top-0 right-0 p-4">
+                    <!-- Ikona "X" na zatvorenie menu -->
+                    <button @click="toggleMenu" class="text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex flex-col items-center justify-center h-full">
+                    <a href="#" class="text-white text-xl mb-4 hover:text-gray-400">Domov</a>
+                    <a href="#" class="text-white text-xl mb-4 hover:text-gray-400">O nás</a>
+                    <a href="#" class="text-white text-xl mb-4 hover:text-gray-400">Služby</a>
+                    <a href="#" class="text-white text-xl mb-4 hover:text-gray-400">Kontakt</a>
+                </div>
             </div>
         </div>
 
         <!-- Render the modal if it's open -->
         <Modal v-if="isModalOpen" @close="handleCloseModal" @submit="handleSubmit" />
-    </div>
+    </nav>
 </template>
 
-<script setup lang="ts">
-import { ref, computed } from "vue";
+<script setup>
+import { ref } from 'vue';
 import NavLink from "@/Components/NavLink.vue";
 import Modal from "@/Components/Sidebar/Modal.vue";
 
-const isOpen = ref(false);
+const isMenuOpen = ref(false);
 const isModalOpen = ref(false);
-
-const containerClass = computed(() => {
-    return isOpen.value ? "w-full md:w-64" : "w-20";
-});
-
-const handleOpenClose = () => {
-    isOpen.value = !isOpen.value;
-};
 
 const handleOpenModal = () => {
     isModalOpen.value = true;
@@ -126,21 +88,11 @@ const handleCloseModal = () => {
     isModalOpen.value = false;
 };
 
-interface SubmitData {
-    name: string;
-    description: string;
-    place: string;
-    image: string;
-    type: string;
+function toggleMenu() {
+    isMenuOpen.value = !isMenuOpen.value;
 }
-
-const handleSubmit = (data: SubmitData) => {
-    console.log("Submitted Data:", data);
-    // Add your submit logic here
-    // e.g., send the data to an API
-};
 </script>
 
 <style scoped>
-/* Add any additional styles if needed */
+/* Môžeš pridať ďalšie štýly podľa potreby */
 </style>

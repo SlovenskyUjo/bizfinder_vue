@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 md:p-8">
+    <div class="flex flex-col items-center justify-center min-h-screen sm:p-6 md:p-8">
         <div
             class="shadow-lg rounded-lg p-4 sm:p-6 md:p-8 max-w-full md:max-w-2xl w-full text-center transition-transform transition-opacity duration-600"
             :class="{ 'opacity-0 scale-90': !isVisible, 'opacity-100 scale-100': isVisible }"
@@ -28,6 +28,7 @@
 
 <script setup>
 import {ref, onMounted} from 'vue';
+import Navigation from "@/Components/Sidebar/Navigation.vue";
 
 const isVisible = ref(false);
 

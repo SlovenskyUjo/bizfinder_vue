@@ -1,6 +1,6 @@
 <template>
-    <div class="fixed inset-0 bg-black bg-opacity-50 z-40 flex justify-center items-center">
-        <div class="bg-white p-5 rounded-lg w-1/3">
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
+        <div class="bg-white p-5 rounded-lg w-full max-w-lg mx-4 z-50">
             <h2 class="text-xl font-bold mb-4">Add Your Company</h2>
             <form @submit.prevent="handleSubmit" class="space-y-4">
                 <!-- Form Fields -->
@@ -69,8 +69,8 @@
 </template>
 
 <script setup>
-import {useForm} from '@inertiajs/vue3';
-import {defineEmits} from 'vue';
+import { useForm } from '@inertiajs/vue3';
+import { defineEmits } from 'vue';
 
 const emit = defineEmits(['close']);
 
@@ -103,5 +103,8 @@ function handleFileUpload(event) {
 </script>
 
 <style scoped>
-/* Add any additional styles if needed */
+/* Ensure modal is centered and above all other content */
+.fixed {
+    z-index: 50; /* Ensure it is above other content */
+}
 </style>
