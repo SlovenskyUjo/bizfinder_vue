@@ -106,10 +106,12 @@ const isModalOpen = ref(false);
 
 const handleOpenModal = () => {
     isModalOpen.value = true;
+    isMenuOpen.value = false;
 };
 
 const handleCloseModal = () => {
     isModalOpen.value = false;
+    isMenuOpen.value = true;
 };
 
 function toggleMenu() {

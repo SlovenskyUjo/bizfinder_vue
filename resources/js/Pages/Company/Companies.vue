@@ -20,7 +20,7 @@
             </select>
         </div>
 
-        <p v-if="companies.length == 0">No companies found!</p>
+        <p class="mt-4" v-if="companies.length == 0">No companies found!</p>
 
         <!-- Companies List -->
         <div v-else v-if="filteredCompanies.length > 0" class="mt-8 w-full max-w-4xl">
