@@ -1,4 +1,5 @@
 <template>
+    <Navigation />
     <div class="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-100">
         <div class="shadow-lg rounded-lg p-8 max-w-4xl w-full text-center bg-white">
             <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6">
@@ -63,6 +64,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import Navigation from "@/Components/Sidebar/Navigation.vue";
 
 const props = defineProps<{
     companies: Array<{
